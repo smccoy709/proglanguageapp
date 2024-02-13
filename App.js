@@ -7,7 +7,6 @@ import {
   View,
   ScrollView,
   Platform,
-  Task,
   Keyboard,
   TouchableOpacity
 } from 'react-native';
