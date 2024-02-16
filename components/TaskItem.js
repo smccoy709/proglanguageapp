@@ -1,25 +1,63 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     View,
     Text,
     StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 const TaskItem = (props) => {
+    const [languages, setLanguages] = useState([]);
+    const options = [''];
+
+    function pickLanguages(selectedLanguages) {        
+        if (languages .includes(selectedLanguages)) {
+            setLanguages(languages.filter(Language => Language !== selectedLanguages));
+            return;
+        }
+
+        setLanguages(Languages => Languages.concat(selectedLanguages));
+    }
     return (
         <View style={styles.items}>
-            <View style={styles.itemLeft}>
-                <View style={styles.square}></View>
+            <View style={styles.options}>
+                {options.map(option => (
+                    <View key={option} style={styles.languages}>
+                        <TouchableOpacity style={styles.checkBox} onPress={() => pickLanguages(option)}>
+                            {languages.includes(option) && (<Text>✓</Text>)}
+                        </TouchableOpacity>
+                        <Text style={styles.languageName}>{option}</Text>
+                    </View>
+                ))}
             </View>
-            <Text style={styles.itemText}>
+            <Text style={styles.itemLeft}>
                 {props.text}
             </Text>
-            <View style={styles.circular}></View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    checkBox: {
+        width: 20,
+        height: 20,
+        borderWidth: 2,
+        borderColor: '#000',
+        marginRight: 5,
+        marginTop: 10,
+    },
+    languageName: {
+        textTransform: 'capitalize',
+        fontSize: 16,
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: '600',
+    },
+    options: {
+        alignSelf: 'flex-start',
+        marginLeft: 50,
+    },
     items: {
         backgroundColor: '#FFF',
         padding: 15,
@@ -27,36 +65,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginTop: 15,
 
     },
     itemLeft: {
         flexDirection: 'row',
-        alignItems: 'center',
         flexWrap: 'wrap',
-    },
-    square: {
-        width: 24,
-        height: 24,
-        backgroundColor: '#55BCF6',
-        opacity: 0.4,
-        borderRadius: 5,
-        marginRight: 5,
-    },
-    itemText: {
-        maxWidth: '80%',
-
-    },
-    circular: {
-        width: 12,
-        height: 12,
-        borderColor: '#55BCF6',
-        borderWidth: 2,
-        borderRadius: 5,
-    },
-    strike: {
-        textDecoration: 'line-through',
-     },
+        width: '100%',
+        marginRight: 150,
+        paddingLeft: 25,
+        paddingRight: 105,
+    }
 });
 
 export default TaskItem;
