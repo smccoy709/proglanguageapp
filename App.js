@@ -38,11 +38,10 @@ export default function App() {
         keyboardShouldPersistTaps='handled'
       >
 
-      {/* Today's Tasks */}
+      {/* The programming languages that the user wants to learn */}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Learning to Code Checklist!</Text>
         <View style={styles.items}>
-          {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
               return (
@@ -54,7 +53,8 @@ export default function App() {
           }
         </View>
       </View>
-              {/* Write a task */}
+
+        {/* Add a programming language to the log */}
         {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
 
         <KeyboardAvoidingView 
