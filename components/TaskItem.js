@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: 15,
+        marginTop: 30,
 
     },
     itemLeft: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         marginRight: 150,
         paddingLeft: 25,
         paddingRight: 105,
-    }
+    },
 });
 
 export default TaskItem;
