@@ -68,9 +68,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     taskItemText: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         alignSelf: 'center',
         fontSize: 16,
-        marginRight: 15
+        width: '100%',
+        marginRight: -95,
+        paddingLeft: 25,
+        paddingRight: 105,
     }
 });
 
