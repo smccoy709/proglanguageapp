@@ -8,7 +8,7 @@ import {
   ScrollView,
   Platform,
   Keyboard,
-  TouchableOpacity
+  Pressable
 } from 'react-native';
 import TaskItem from './components/TaskItem';
 import {IconButton} from 'react-native-paper'
@@ -46,10 +46,11 @@ export default function App() {
           {
             taskItems.map((item, index) => {
               return (
-                <TouchableOpacity>
-                  <TaskItem text={item} /> 
-                  <IconButton style={styles.trash} icon='trash-can' key={index}  onPress={() => completeTask(index)}/>
-                </TouchableOpacity>
+                <View key={index}>
+                  <TaskItem text={item}>
+                    <IconButton icon='trash-can' key={index} onPress={() => completeTask(index)}/>
+                  </TaskItem>
+                </View>
               )
             })
           }
@@ -59,16 +60,13 @@ export default function App() {
         {/* Add a programming language to the log */}
         {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
 
-        <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
-      >
-        <TextInput style={styles.input} placeholder={'Add a Programming Language'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
+          <TextInput style={styles.input} placeholder={'Add a Programming Language'} value={task ?? ''} onChangeText={text => setTask(text)} />
+          <Pressable onPress={() => handleAddTask()}>
+            <View style={styles.addWrapper}>
+              <Text style={styles.addText}>+</Text>
+            </View>
+          </Pressable>
       </KeyboardAvoidingView>
       </ScrollView>
     </View>
@@ -117,9 +115,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#C0C0C0',
     borderWidth: 1,
-  },
-  trash: {
-    marginTop: -60,
-    marginLeft: 330,
-  },
+  }
 });
