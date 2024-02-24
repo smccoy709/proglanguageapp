@@ -3,79 +3,75 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    Pressable
 } from 'react-native';
 
 const TaskItem = (props) => {
     const [languages, setLanguages] = useState([]);
-    const options = [''];
 
     function pickLanguages(selectedLanguages) {        
-        if (languages .includes(selectedLanguages)) {
+        if (languages.includes(selectedLanguages)) {
             setLanguages(languages.filter(Language => Language !== selectedLanguages));
             return;
         }
 
         setLanguages(Languages => Languages.concat(selectedLanguages));
     }
+
+    function getTaskItemStyle() {
+        return languages.includes(props.text) ? styles.taskItemActiveColor : styles.taskItemColor;
+    }
+
     return (
-        <View style={styles.items}>
-            <View style={styles.options}>
-                {options.map(option => (
-                    <View key={option} style={styles.languages}>
-                        <TouchableOpacity style={styles.checkBox} onPress={() => pickLanguages(option)}>
-                            {languages.includes(option) && (<Text>✓</Text>)}
-                        </TouchableOpacity>
-                        <Text style={styles.languageName}>{option}</Text>
-                    </View>
-                ))}
+        <View style={[styles.taskItem, getTaskItemStyle()]}>
+            <View style={styles.taskItemData}>
+                <Pressable style={styles.taskItemCheckbox} onPress={() => pickLanguages(props.text)}>
+                    {languages.includes(props.text) && <Text style={styles.taskItemCheckboxCheck}>✓</Text>}
+                </Pressable>
+                <Text style={styles.taskItemText}>
+                    {props.text}
+                </Text>
+                {props.children}
             </View>
-            <Text style={styles.itemLeft}>
-                {props.text}
-            </Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    checkBox: {
-        width: 20,
-        height: 20,
-        borderWidth: 2,
-        borderColor: '#000',
-        marginRight: 5,
-        marginTop: 10,
-    },
-    languageName: {
-        textTransform: 'capitalize',
-        fontSize: 16,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: '600',
-    },
-    options: {
+    taskItemData: {
+        flexDirection: 'row',
         alignSelf: 'flex-start',
-        marginLeft: 50,
+        marginLeft: 30,
     },
-    items: {
-        backgroundColor: '#FFF',
+    taskItem: {
         padding: 15,
         borderRadius: 10,
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: 30,
-
+        marginTop: 30
     },
-    itemLeft: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        width: '100%',
-        marginRight: 150,
-        paddingLeft: 25,
-        paddingRight: 105,
+    taskItemActiveColor: {
+        backgroundColor: 'lightgreen'
     },
+    taskItemColor: {
+        backgroundColor: '#fff'
+    },
+    taskItemCheckbox: {
+        width: 24,
+        height: 24,
+        borderWidth: 2,
+        borderColor: '#000',
+        marginRight: 15,
+        alignSelf: 'center',
+    },
+    taskItemCheckboxCheck: {
+        alignSelf: 'center',
+    },
+    taskItemText: {
+        alignSelf: 'center',
+        fontSize: 16,
+        marginRight: 15
+    }
 });
 
 export default TaskItem;
